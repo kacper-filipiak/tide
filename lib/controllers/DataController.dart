@@ -8,8 +8,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DataController extends GetxController{
 
 
+
+  Activity currentActivity  = Activity.empty().obs();
   Activity addActivityTemp = Activity.empty();
   List<Activity> doneActivList = List<Activity>.empty().obs();
+  List<Activity> ownActivList = List<Activity>.empty().obs();
     void getUserTasks(String uid) async{
       var data = await FirebaseFirestore.instance.collection('users').doc(uid).collection('done').get();
 
@@ -18,39 +21,29 @@ class DataController extends GetxController{
 
       doneActivList.add(Activity(element.id, element['duration'], element['difficulty'], element['refresh']));
     });
+      data = await FirebaseFirestore.instance.collection('users').doc(uid).collection('own').get();
+
+      ownActivList = List<Activity>.empty().obs();
+      data.docs.forEach((element) {
+
+        ownActivList.add(Activity(element.id, element['duration'], element['difficulty'], element['refresh']));
+      });
       update();
     }
-    void putUserTaskPrivate(String uid) async{
-      FirebaseFirestore.instance.collection('users').doc(uid).collection('done').add(
+    void putUserTask(String uid, String path) async{
+      FirebaseFirestore.instance.collection('users').doc(uid).collection(path).doc(addActivityTemp.name).set(
         addActivityTemp.toJson()
       );
     }
-    var nip = "";
-    List<Firm> listOfFirms = [];
-    Firm currentFirm = Firm.empty().obs();
-    void bindFirm(User? _user){
-        //TODO: implement binding firm by nip to user in api
-        print("binding");
-   }
-    void getFirmsData(){
-        //Mock for resta api call
-        //TODO: implement api request for data
-        listOfFirms.clear();
-        listOfFirms.add(Firm.withReports("HANDEL OBWOŹNY ART.SPOŻ.I PRZEM. SIERADZKI JERZY","8992127037","POLSKA DOLNOŚLĄSKIE Wrocław Wrocław-Krzyki Wrocław Kościuszki 146 10 50-439 Wrocław", [Report(DateTime.now())]));
-        
-        listOfFirms.add(Firm("Firma druga", "8735459399803", "Tutaj",));
-       //XDDDDD upad upad upad upad upad upad!!!! 
+    void getRandom(String uid, String path, [bool community = false]) async {
+      var data = (await FirebaseFirestore.instance.collection('users').doc(uid).collection(path).get()).docs;
+      var choosen =  (data..shuffle()).first;
+
+      currentActivity = Activity(choosen.id, choosen['duration'], choosen['difficulty'], choosen['refresh']);
+
+      update();
     }
-    List<PopupMenuItem> getListOfFirmsNames(){
-        List<PopupMenuItem> list = [];
-        listOfFirms.asMap().forEach((i, v) {
-           list.add(PopupMenuItem(
-                           child: Text(v.name),
-                           value: i,
-           ));
-        });
-        return list;
-    }
+
 }
 class Activity{
   Activity(this.name,  this.duration, this.difficulty, this.refresh);
@@ -60,6 +53,10 @@ class Activity{
   int duration = 0.obs();
   int difficulty = 0.obs();
   int refresh = 0.obs();
+  bool isNotEmpty(){
+    if(name == "")return false;
+    return true;
+  }
   Map<String, dynamic> toJson(){
     return {
       "name" : name,

@@ -1,17 +1,15 @@
-import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../controllers/DataController.dart';
 import '../controllers/AuthController.dart';
-import './DefaultPage.dart';
-class DrawPage extends StatelessWidget{
-  DrawPage({Key? key}): super(key: key);
+
+class ActiveActivity extends StatelessWidget{
+  const ActiveActivity({Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context){
     DataController data_c = Get.find();
     AuthController auth_c = Get.find();
-    data_c.getRandom(auth_c.user!.uid, 'own');
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -39,25 +37,18 @@ class DrawPage extends StatelessWidget{
             Row(
               children: [
                 ElevatedButton(
-                  child: Text("I'll do this"),
+                  child: Text("Finish activity"),
+
                   onPressed: (){
-                    Get.back();
+                    data_c.currentActivity = Activity.empty();
+                    data_c.putUserTask(auth_c.user!.uid, 'done');
                   },
                 ),
                 ElevatedButton(
-                  child: Text("Redraw activity"),
+                  child: Text("Abort acttivity"),
                   onPressed: (){
 
                     data_c.currentActivity = Activity.empty();
-                    Get.offAll(DrawPage());
-                  },
-                ),
-                ElevatedButton(
-                  child: Text("Cancel activity"),
-                  onPressed: () {
-                    data_c.currentActivity = Activity.empty();
-                    Get.offAll(DefaultPage());
-
                   },
                 ),
 
@@ -67,6 +58,5 @@ class DrawPage extends StatelessWidget{
         ),
       ),
     );
-
   }
 }
