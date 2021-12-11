@@ -20,10 +20,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Color whiteText = Color.fromARGB(255, 234, 234, 234);
+    Color primaryColor = Color.fromRGBO(123, 124, 124, 1.0);
+
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
               scaffoldBackgroundColor: Color.fromRGBO(123, 124, 124, 124),
+        primaryColor: Color.fromRGBO(123, 123, 123, 1.0),
+        drawerTheme: DrawerThemeData(backgroundColor: primaryColor ),
+        fontFamily: 'Raleway',
+        textTheme: TextTheme(
+
+          headline1: TextStyle(fontSize: 72.0, color: whiteText, fontWeight: FontWeight.bold),
+          headline6: TextStyle(fontSize: 36.0, color: whiteText,fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 14.0,color: whiteText, ),
+          button: TextStyle(fontSize: 14.0,color: whiteText, ),
+        ),
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
