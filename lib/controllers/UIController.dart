@@ -8,28 +8,27 @@ import './Firm.dart';
 class UIController extends GetxController{
 
     var countDown = 0.obs();
-    String getLastSubmitionDate(Firm currentFirm){
 
-        return currentFirm.reports.isNotEmpty  ?  DateFormat("dd-MM-yyyy").format(currentFirm.reports.first.date): "";
-    }
-    String getDaysToDeadline(){
-        DateTime now = DateTime.now();
-        var  next  = DateTime.utc(now.year, (now.month)%12 + 1, 1 );
-        next = next.subtract(Duration(days: 1));
-        return (next.day - now.day).toString();
-    }
+    bool calmBool = false;
+    String calmText = "Calm down".obs();
+    double calmWidth = 0.01.obs();
+    void toggleBreathing()async{
+        countDown = 10;
+        calmBool = !calmBool;
+        calmWidth = 0.25;
+        update();
+        while(countDown > 0 && calmBool) {
+            await Future.delayed(Duration(seconds: 3));
+            countDown--;
 
-    DateTime historyDate = DateTime.now().obs();
-    String getHistoryDate(DateTime date){
-        return DateFormat("MM-yyyy").format(date);
-    }
-    double offset = 0.0.obs();
-    void startWave() async{
-
-            await Future.delayed(Duration(milliseconds: 10));
-            offset += 0.01;
-            
+            calmText = countDown%2 == 0? "Breath in": "Breath out";
             update();
+            //TODO: Release on navigating off this screen
+        }
+        calmWidth = 0.1;
+        calmText = "Calm down";
+        countDown = 0;
+        update();
     }
     void startCountDown()async{
         countDown = 10;
