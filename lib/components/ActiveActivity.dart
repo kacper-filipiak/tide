@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../pages/DefaultPage.dart';
 import '../controllers/DataController.dart';
 import '../controllers/AuthController.dart';
 
@@ -10,51 +13,94 @@ class ActiveActivity extends StatelessWidget{
   Widget build(BuildContext context){
     DataController data_c = Get.find();
     AuthController auth_c = Get.find();
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Container(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5.5, sigmaY: 5.5),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(24.0))
 
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-            Text(
-                "name: ${data_c.currentActivity.name}"
             ),
-            Divider(),
-            Text(
-                "duration: ${data_c.currentActivity.duration}"
+
+            child: Scaffold(
+              body: Column(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      Text(
+                          data_c.currentActivity.name + ":", style: Get.textTheme.headline1,
+                      ),
+                      Column(
+                        children: [
+                          Divider(),
+                          Row(
+                            children: [
+                              Icon(Icons.timer),
+                              Text(
+                                  " : ${data_c.currentActivity.duration}"
+                              ),
+                            ],
+                          ),
+                          Divider(),
+                          Row(
+                            children: [
+                              Icon(Icons.circle),
+                              Text(
+                                  " : ${data_c.currentActivity.difficulty}"
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                    ],
+                  ),
+
+                  Divider(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        child: Text("Finish"),
+
+                        onPressed: (){
+                          data_c.currentActivity = Activity.empty();
+                          data_c.putUserTask(auth_c.user!.uid, 'done');
+                          Get.offAll(DefaultPage());
+                        },
+                      ),
+                      VerticalDivider(color: Colors.white70, thickness: 1, width: 24.0,),
+                      TextButton(
+                        child: Text("Redraw"),
+
+                        onPressed: (){
+                          data_c.currentActivity = Activity.empty();
+                          data_c.getRandom(auth_c.user!.uid, 'own', true);
+                        },
+                      ),
+                      VerticalDivider(color: Colors.white70, thickness: 1, width: 24.0,),
+                      TextButton(
+                        child: Text("Abort"),
+                        onPressed: (){
+
+                          data_c.currentActivity = Activity.empty();
+                          Get.offAll(DefaultPage());
+                        },
+                      ),
+
+                    ],
+                  )
+                ],
+              ),
             ),
-            Divider(),
-            Text(
-                "difficulty: ${data_c.currentActivity.difficulty}"
-            ),
-            Divider(),
-            Text(
-                "refresh: ${data_c.currentActivity.refresh}"
-            ),
-            Divider(),
-
-            Row(
-              children: [
-                ElevatedButton(
-                  child: Text("Finish activity"),
-
-                  onPressed: (){
-                    data_c.currentActivity = Activity.empty();
-                    data_c.putUserTask(auth_c.user!.uid, 'done');
-                  },
-                ),
-                ElevatedButton(
-                  child: Text("Abort acttivity"),
-                  onPressed: (){
-
-                    data_c.currentActivity = Activity.empty();
-                  },
-                ),
-
-              ],
-            )
-          ],
+          ),
         ),
       ),
     );

@@ -36,11 +36,24 @@ class DataController extends GetxController{
       );
     }
     void getRandom(String uid, String path, [bool community = false]) async {
-      var data = (await FirebaseFirestore.instance.collection('users').doc(uid).collection(path).get()).docs;
-      var choosen =  (data..shuffle()).first;
+      if(community == true){
+        var data = (await FirebaseFirestore.instance.collection('community').doc(
+            uid).collection('trending').get()).docs;
+        var choosen = (data..shuffle()).first;
 
-      currentActivity = Activity(choosen.id, choosen['duration'], choosen['difficulty'], choosen['refresh']);
+        currentActivity = Activity(
+            choosen.id, choosen['duration'], choosen['difficulty'],
+            choosen['refresh']);
 
+      }else {
+        var data = (await FirebaseFirestore.instance.collection('users').doc(
+            uid).collection(path).get()).docs;
+        var choosen = (data..shuffle()).first;
+
+        currentActivity = Activity(
+            choosen.id, choosen['duration'], choosen['difficulty'],
+            choosen['refresh']);
+      }
       update();
     }
 

@@ -129,6 +129,7 @@ class DefaultPageBody extends StatelessWidget {
     Widget build(BuildContext context){
         DataController data_c = Get.find();
         UIController ui_c = Get.find();
+        AuthController auth_c = Get.find();
         return Center(child: Column(
                     children: [
                       Center(
@@ -144,7 +145,13 @@ class DefaultPageBody extends StatelessWidget {
                                 width: 172,
                                 height: 172,
                                 child: Center(child: Text("Draw activity"))),
-                            onPressed: ()=> Get.to(DrawPage()),
+                            onPressed: () {
+
+                              data_c.getRandom(auth_c.user!.uid, 'own', true);
+                              Get.dialog(ActiveActivity());
+
+
+                            },
                           ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(152.0,152.0,0.0,0.0),
@@ -214,20 +221,7 @@ class DefaultPageDrawer extends StatelessWidget{
                             Text("Done activities:"),
                             Expanded(child: DoneList()),
                             Divider(),
-                            ElevatedButton(
-                              style: Get.theme.elevatedButtonTheme.style,
-                              child: SizedBox(
-                                width: Get.width * 0.3,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:[
-                                    Text("Add activity"),
-                                    Icon(Icons.add_outlined, color: Colors.greenAccent),
-                                  ],
-                                ),
-                              ),
-                              onPressed: ()=> Get.to(FoarmPage()),
-                            ),
+
                             Text("Your activities:"),
                             Expanded(child: OwnList()),
                           ],
