@@ -69,8 +69,6 @@ class DefaultPageBody extends StatelessWidget {
                         ),
                         onPressed: ()=> Get.to(FoarmPage()),
                       ),
-                      DoneList(),
-
                       Divider(),
                     ],
                   ));
@@ -82,30 +80,7 @@ class DefaultPageDrawer extends StatelessWidget{
     build(BuildContext context){
         DataController data_c = Get.find();
         return Drawer(
-                        child: ListView(
-                                children: [
-                                    ListTile(
-                                            leading: Icon(Icons.account_box_outlined),
-                                            title: Text("Twoje dane"),
-                                            onTap: ()=> Get.to(AccountPage()),
-                                            ),
-                                    ListTile(
-                                            leading: Icon(Icons.history_outlined),
-                                            title: Text("Historia"),
-                                            onTap: ()=> Get.dialog(HistoryPage()),
-                                            ),
-                                    
-                                            PopupMenuButton(onSelected: (v) =>
-                                                    data_c.currentFirm.assign(GetWrapper<Firm, DataController>( 
-                                                    data_c.listOfFirms[int.parse(v.toString())], data_c)),
-                                                    itemBuilder: (context)=> data_c.getListOfFirmsNames(),
-                                                    child: ListTile(
-                                            leading: Icon(Icons.switch_account_outlined),
-                                            title: Text("Zmień swoją firmę"),
-                                            ),
-                                            ),
-                                ],
-                        )
+                        child: DoneList(),
                         );
     }
 }
