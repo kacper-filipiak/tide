@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1074099430040",
+    "project_id": "copoczniesz-5b401",
+    "storage_bucket": "copoczniesz-5b401.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074099430040:android:41c73e65d9582084d5a6ed",
+        "android_client_info": {
+          "package_name": "com.filiplike.copoczniesz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074099430040-ipbbocg7f6b63m7hrns9eimlanhqfbv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXW3A2japOmWRyisoT-MZsaGXXROvmQjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074099430040-ipbbocg7f6b63m7hrns9eimlanhqfbv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
