@@ -10,13 +10,16 @@ class DoneList extends StatelessWidget{
     DataController data_c = Get.find();
     return Scaffold(
       body:
-    GetBuilder<DataController>(
-      builder: (data_c) => ListView.builder(itemCount: data_c.doneActivList.length,
-      itemBuilder: (context, index){
-        return ListTile(title: Text(data_c.doneActivList[index].name));
-      }
+    SizedBox(
+      height: Get.height*0.4,
+      child: GetBuilder<DataController>(
+        builder: (data_c) => ListView.builder(itemCount: data_c.doneActivList.length,
+        itemBuilder: (context, index){
+          return ListTile(title: Text(data_c.doneActivList[index].name));
+        }
 
-      )
+        )
+      ),
     )
     );
   }

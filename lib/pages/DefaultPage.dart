@@ -71,6 +71,7 @@ class DefaultPageBody extends StatelessWidget {
                       ),
                       DoneList(),
 
+                      Divider(),
                     ],
                   ));
     }
