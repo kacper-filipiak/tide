@@ -30,6 +30,19 @@ class UIController extends GetxController{
         countDown = 0;
         update();
     }
+    Color convertDifficultyToColor(String difficulty){
+        switch(difficulty){
+            case "easy":
+                return Colors.lightGreen;
+            case "medium":
+                return Colors.limeAccent;
+            case "more involving":
+                return Colors.black;
+            default:
+                return Colors.blueAccent;
+        }
+
+    }
     void startCountDown()async{
         countDown = 10;
         while(countDown > 0) {

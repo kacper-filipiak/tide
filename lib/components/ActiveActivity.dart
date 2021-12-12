@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:copoczniesz/controllers/UIController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../pages/DefaultPage.dart';
@@ -13,8 +14,9 @@ class ActiveActivity extends StatelessWidget{
   Widget build(BuildContext context){
     DataController data_c = Get.find();
     AuthController auth_c = Get.find();
+    UIController ui_c = Get.find();
     return  Scaffold(
-      backgroundColor: Colors.black38,
+      backgroundColor: Colors.black26,
     body:Center(
       child: SizedBox(
         width: Get.width*0.9,
@@ -37,14 +39,17 @@ class ActiveActivity extends StatelessWidget{
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                        children: [
-                         Column(
-                           children: [
-                             Text(
-                                 data_c.currentActivity.name , style: Get.textTheme.headline1, softWrap: true,
-                             ),
+                         SizedBox(
+                           width: Get.width*0.5,
+                           child: Column(
+                             children: [
+                               Text(
+                                   data_c.currentActivity.name , style: Get.textTheme.headline1, softWrap: true,
+                               ),
 
-                             Text(data_c.currentActivity.category, style: Get.textTheme.bodyText2),
-                           ],
+                               Text(data_c.currentActivity.category, style: Get.textTheme.bodyText2),
+                             ],
+                           ),
                          ),
 
                          Column(
@@ -61,9 +66,11 @@ class ActiveActivity extends StatelessWidget{
                              Divider(),
                              Row(
                                children: [
-                                 Icon(Icons.circle),
+                                 Icon(Icons.circle, color: ui_c.convertDifficultyToColor(data_c.currentActivity.difficulty)),
                                  Text(
-                                     data_c.currentActivity.difficulty
+                                     data_c.currentActivity.difficulty,
+                                   softWrap: true,
+
                                  ),
                                ],
                              ),
@@ -74,7 +81,16 @@ class ActiveActivity extends StatelessWidget{
                      ),
 
                      Divider(),
-                     Text(data_c.currentActivity.description, style: Get.textTheme.bodyText2, softWrap: true,),
+                     Container(
+                       decoration: BoxDecoration(
+
+                         borderRadius: BorderRadius.circular(24.0),
+                         color: Colors.black45,
+                       ),
+                         child: Padding(
+                           padding: const EdgeInsets.all(16.0),
+                           child: Text(data_c.currentActivity.description, style: Get.textTheme.bodyText2, softWrap: true,),
+                         )),
 
                      Row(
                        mainAxisAlignment: MainAxisAlignment.center,
