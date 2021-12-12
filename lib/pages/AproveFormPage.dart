@@ -21,39 +21,54 @@ class AproveFormPage extends StatelessWidget{
               Text(
                "name: ${data_c.addActivityTemp.name}"
               ),
-              Divider(),
+              Divider(thickness: 4,),
               Text(
                 "duration: ${data_c.addActivityTemp.duration}"
                 ),
-              Divider(),
+              Divider(thickness: 4,),
               Text(
                   "difficulty: ${data_c.addActivityTemp.difficulty}"
               ),
-              Divider(),
+              Divider(thickness: 4,),
               Text(
                   "refresh: ${data_c.addActivityTemp.refresh}"
               ),
-              Divider(),
+              Divider(thickness: 4,),
+              Text(
+                  "category: ${data_c.addActivityTemp.category}"
+              ),
+              Divider(thickness: 4,),
+              Text(
+                  "description: ${data_c.addActivityTemp.description}"
+              ),
+              Divider(thickness: 4,),
 
-              Row(
+              Column(
                 children: [
-                  ElevatedButton(
-                    child: Text("Add to your activities"),
+                  TextButton(
+                    child: Text("Add to your activities",
+                      style: Get.textTheme.button,
+                    ),
                     onPressed: (){
-                      data_c.putUserTask(auth_c.user!.uid, 'own');
+                      data_c.putUserTask(auth_c.user!.uid, 'own', data_c.addActivityTemp.name);
                       Get.offAll(DefaultPage());
                     },
                   ),
-                  ElevatedButton(
-                    child: Text("Add to done activities"),
+                  TextButton(
+                    child: Text("Add to done activities",
+
+                      style: Get.textTheme.button,
+                    ),
                     onPressed: (){
 
-                      data_c.putUserTask(auth_c.user!.uid, 'done');
+                      data_c.putUserTask(auth_c.user!.uid, 'done', data_c.addActivityTemp.name);
                       Get.offAll(DefaultPage());
                     },
                     ),
-                  ElevatedButton(
-                    child: Text("Edit"),
+                  TextButton(
+                    child: Text("Edit",
+                      style: Get.textTheme.button,
+                    ),
                     onPressed: ()=> Get.back(),
                   ),
 

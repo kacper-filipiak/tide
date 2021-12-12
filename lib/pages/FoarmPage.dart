@@ -20,38 +20,66 @@ class FoarmPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                 children:[
                   TextFormField(
+                    style: Get.textTheme.bodyText2,
                     decoration: InputDecoration(
+                      hintStyle: Get.textTheme.bodyText2,
                       hintText: "Activity name",
                     ),
                     onChanged: (s)=> data_c.addActivityTemp.name = s,
                 ),
                   Divider(),
                   TextFormField(
+                    style: Get.textTheme.bodyText2,
                     decoration: InputDecoration(
+                      hintStyle: Get.textTheme.bodyText2,
                       hintText: "Activity difficulty",
                     ),
-                    onChanged: (s)=> data_c.addActivityTemp.difficulty = int.parse(s),
+                    onChanged: (s)=> data_c.addActivityTemp.difficulty = s,
                   ),
                   Divider(),
                   TextFormField(
+                    style: Get.textTheme.bodyText2,
                     decoration: InputDecoration(
+                      hintStyle: Get.textTheme.bodyText2,
                       hintText: "Activity duration",
                     ),
                     onChanged: (s)=> data_c.addActivityTemp.duration = int.parse(s),
                   ),
                   Divider(),
                   TextFormField(
+                    style: Get.textTheme.bodyText2,
                     decoration: InputDecoration(
+                      hintStyle: Get.textTheme.bodyText2,
                       hintText: "Activity refresh time",
                     ),
                     onChanged: (s)=> data_c.addActivityTemp.refresh = int.parse(s),
                   ),
                   Divider(),
-                  ElevatedButton(
-                    child: Text("Save activity"),
+                  TextFormField(
+                    style: Get.textTheme.bodyText2,
+                    decoration: InputDecoration(
+                      hintStyle: Get.textTheme.bodyText2,
+                      hintText: "Activity category",
+                    ),
+                    onChanged: (s)=> data_c.addActivityTemp.category = s,
+                  ),
+                  Divider(),
+                  TextFormField(
+                    style: Get.textTheme.bodyText2,
+                    decoration: InputDecoration(
+                      hintStyle: Get.textTheme.bodyText2,
+
+                      hintText: "Activity description",
+                    ),
+                    onChanged: (s)=> data_c.addActivityTemp.description = s,
+                  ),
+                  Divider(),
+                  TextButton(
+                    child: Text("Save activity",style: Get.textTheme.button, ),
                     onPressed: ()=> Get.to(AproveFormPage()),
 
                   )
+
       ],
           ),
               ),

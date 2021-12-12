@@ -14,7 +14,7 @@ class ActiveActivity extends StatelessWidget{
     DataController data_c = Get.find();
     AuthController auth_c = Get.find();
     return  Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black38,
     body:Center(
       child: SizedBox(
         width: Get.width*0.9,
@@ -37,9 +37,16 @@ class ActiveActivity extends StatelessWidget{
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                        children: [
-                         Text(
-                             data_c.currentActivity.name + ":", style: Get.textTheme.headline1,
+                         Column(
+                           children: [
+                             Text(
+                                 data_c.currentActivity.name , style: Get.textTheme.headline1, softWrap: true,
+                             ),
+
+                             Text(data_c.currentActivity.category, style: Get.textTheme.bodyText2),
+                           ],
                          ),
+
                          Column(
                            children: [
                              Divider(),
@@ -47,7 +54,7 @@ class ActiveActivity extends StatelessWidget{
                                children: [
                                  Icon(Icons.timer),
                                  Text(
-                                     " : ${data_c.currentActivity.duration}"
+                                     " : ${data_c.currentActivity.duration} min"
                                  ),
                                ],
                              ),
@@ -56,7 +63,7 @@ class ActiveActivity extends StatelessWidget{
                                children: [
                                  Icon(Icons.circle),
                                  Text(
-                                     " : ${data_c.currentActivity.difficulty}"
+                                     data_c.currentActivity.difficulty
                                  ),
                                ],
                              ),
@@ -67,6 +74,7 @@ class ActiveActivity extends StatelessWidget{
                      ),
 
                      Divider(),
+                     Text(data_c.currentActivity.description, style: Get.textTheme.bodyText2, softWrap: true,),
 
                      Row(
                        mainAxisAlignment: MainAxisAlignment.center,
@@ -74,10 +82,11 @@ class ActiveActivity extends StatelessWidget{
                          TextButton(
                            child: Text("Finish", style: Get.textTheme.button),
 
-                           onPressed: (){
+                           onPressed: ()async{
+                             await data_c.putUserTask(auth_c.user!.uid, 'done', data_c.currentActivity.name);
                              data_c.currentActivity = Activity.empty();
-                             data_c.putUserTask(auth_c.user!.uid, 'done');
-                             Get.offAll(DefaultPage());
+
+                             //Get.offAll(DefaultPage());
                            },
                          ),
                          VerticalDivider(color: Colors.white70, thickness: 1, width: 24.0,),
@@ -95,7 +104,8 @@ class ActiveActivity extends StatelessWidget{
                            onPressed: (){
 
                              data_c.currentActivity = Activity.empty();
-                             Get.offAll(DefaultPage());
+                             //Get.offAll(DefaultPage());
+                             data_c.update();
                            },
                          ),
 

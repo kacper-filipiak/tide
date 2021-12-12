@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Raleway',
         textTheme: TextTheme(
 
-          headline1: TextStyle(fontSize: 72.0, color: whiteText, fontWeight: FontWeight.bold),
-          headline6: TextStyle(fontSize: 36.0, color: whiteText,fontStyle: FontStyle.italic),
+          headline1: TextStyle(fontSize: 26.0, color: whiteText, fontWeight: FontWeight.bold),
+          headline6: TextStyle(fontSize: 24.0, color: whiteText,fontStyle: FontStyle.italic),
           bodyText2: TextStyle(fontSize: 14.0,color: whiteText, ),
           button: TextStyle(fontSize: 14.0,color: whiteText, ),
         ),

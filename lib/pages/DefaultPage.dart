@@ -35,8 +35,9 @@ class DefaultPage extends StatelessWidget {
                       width: Get.width,
                       child: FittedBox(child: Image.asset('assets/wave_bg.png',),  fit: BoxFit.fitHeight)),
                   //  AnimatedBackgroundDefaultPage(),
+                  //DefaultPageBody(),
                    GetBuilder<DataController>(builder: (data_c)=>
-                   data_c.currentActivity.isNotEmpty()? ActiveActivity(): DefaultPageBody()),
+                   data_c.currentActivity.isNotEmptyActivity()? ActiveActivity(): DefaultPageBody()),
                 ],
                 ),
                 );
@@ -145,10 +146,10 @@ class DefaultPageBody extends StatelessWidget {
                                 width: 172,
                                 height: 172,
                                 child: Center(child: Text("Draw activity"))),
-                            onPressed: () {
+                            onPressed: ()async {
 
-                              data_c.getRandom(auth_c.user!.uid, 'own', true);
-                              Get.dialog(ActiveActivity());
+                              await data_c.getRandom(auth_c.user!.uid, 'own', true);
+                              //Get.dialog(ActiveActivity());
 
 
                             },
